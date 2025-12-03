@@ -1,0 +1,49 @@
+# Advanced configuration for few-shot image generation with self-attention
+
+model:
+  z_dim: 128
+  img_size: 64
+  img_channels: 3
+  hidden_dim: 1024
+  num_layers: 6
+  use_spectral_norm: true
+  use_self_attention: true
+  meta_lr: 0.0005
+  adaptation_lr: 0.005
+  num_adaptation_steps: 10
+  lambda_recon: 0.2
+  lambda_perceptual: 0.1
+
+data:
+  dataset_type: "celeba"
+  img_size: 64
+  batch_size: 8
+  num_workers: 8
+  num_shots: 10
+  num_query: 20
+  val_split: 0.2
+  test_split: 0.1
+
+training:
+  max_epochs: 200
+  checkpoint_dir: "./checkpoints_advanced"
+  save_every_n_epochs: 5
+  early_stopping_patience: 30
+  gradient_clip_val: 0.5
+  accumulate_grad_batches: 4
+
+logging:
+  logger_type: "wandb"
+  log_dir: "./logs_advanced"
+  project_name: "few-shot-image-generation-advanced"
+
+evaluation:
+  num_samples: 2000
+  save_samples: true
+  output_dir: "./evaluation_results_advanced"
+
+sampling:
+  num_samples: 32
+  temperature: 0.8
+  truncation: 0.8
+  seed: 42

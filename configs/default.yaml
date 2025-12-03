@@ -1,0 +1,49 @@
+# Default configuration for few-shot image generation
+
+model:
+  z_dim: 100
+  img_size: 64
+  img_channels: 3
+  hidden_dim: 512
+  num_layers: 4
+  use_spectral_norm: true
+  use_self_attention: false
+  meta_lr: 0.001
+  adaptation_lr: 0.01
+  num_adaptation_steps: 5
+  lambda_recon: 0.1
+  lambda_perceptual: 0.1
+
+data:
+  dataset_type: "cifar10"  # Options: cifar10, celeba, custom
+  img_size: 64
+  batch_size: 4
+  num_workers: 4
+  num_shots: 5
+  num_query: 15
+  val_split: 0.2
+  test_split: 0.1
+
+training:
+  max_epochs: 100
+  checkpoint_dir: "./checkpoints"
+  save_every_n_epochs: 10
+  early_stopping_patience: 20
+  gradient_clip_val: 1.0
+  accumulate_grad_batches: 2
+
+logging:
+  logger_type: "tensorboard"  # Options: tensorboard, wandb, none
+  log_dir: "./logs"
+  project_name: "few-shot-image-generation"
+
+evaluation:
+  num_samples: 1000
+  save_samples: true
+  output_dir: "./evaluation_results"
+
+sampling:
+  num_samples: 16
+  temperature: 1.0
+  truncation: 1.0
+  seed: 42
